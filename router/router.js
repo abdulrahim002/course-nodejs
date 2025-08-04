@@ -19,7 +19,7 @@ router.post('/users/salarys',Check.CheckSalayrs,UsersController.GetAllUsersSalar
 
 router.post('/validation/loginUsers',Validation.LoginValidation,UsersController.loginUsers);
 router.post('/validation/registeringUsers',Validation.RegisteringValidation,UsersController.RegisteringUsers);
-router.post('/validation/SinUpUsers',Validation.LoginValidation,UsersController.UsersData);
+router.post('/validation/usersData',Validation.usersDataValidation,UsersController.UsersData);
 
 
 

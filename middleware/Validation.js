@@ -29,11 +29,13 @@ if(username  && password && email && phone){
     });
 }
 
-exports.LoginValidation =(req,res,next)=>{
+exports.usersDataValidation =(req,res,next)=>{
 
     const {username,password}=req.body;
     if(username ==="Abdulrahim" && password === "123456"){
         next();
         return;
     }
+    
+    
 }
