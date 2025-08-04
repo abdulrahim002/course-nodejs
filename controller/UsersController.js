@@ -1,19 +1,37 @@
 exports.loginUsers=(req,res)=>{
-    const {username,password} =req.body;
-    if(username == "Abdulrahim" && password == "123456"){
-        return res.json({
-            msg:"welcome to the system",
-            state:0,
-            
+    const {username} = req.body;
+         res.json({
+            msg:`Welcome Back ${username}`,
+            data: {
+                username: username,
+                email: "abdulrahim002@gmail.com",
+                age:22, 
+                phone: "123456789",
+            state:1,
+            }
         });
-       
+ 
     }
-    return res.json({
-           msg:"error",
-           
-            state:1
-        });
-    }
+
+ exports.RegisteringUsers=(req,res)=>{
+    const{username,email,phone}=req.body;
+    res.json({
+        msg:`welcome ${username}`,
+        data: {
+            username:username,
+            email: email,
+            phone: phone,
+        state:1,
+ }})}
+
+exports.UsersData =(req,res)=>{
+    res.json({
+        msg:"Users Data",
+        data: ['abdulrahim@gmail','200415','09254545454'],
+        state:1,
+    })
+}
+
 
 
 exports.SinUpUsers=(req,res)=>{
@@ -32,4 +50,12 @@ else{
             state:1
         });
 }
+}
+
+exports.GetAllUsersSalarys = (req, res) => {
+    
+    res.json({
+        state:1,
+        data: [200,450,5051,51051],
+    })
 }
