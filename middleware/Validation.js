@@ -36,8 +36,9 @@ exports.usersDataValidation =(req,res,next)=>{
         next();
         return;
     }
-    res.json({
+    res.status(401).json({
     msg:"انت غير مصرح لك",
+    
     }
     )
     
