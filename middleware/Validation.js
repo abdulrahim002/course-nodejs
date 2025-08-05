@@ -36,6 +36,10 @@ exports.usersDataValidation =(req,res,next)=>{
         next();
         return;
     }
+    res.json({
+    msg:"انت غير مصرح لك",
+    }
+    )
     
     
 }
