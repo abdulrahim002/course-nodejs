@@ -1,61 +1,124 @@
-exports.loginUsers=(req,res)=>{
-    const {username} = req.body;
-         res.json({
-            msg:`Welcome Back ${username}`,
-            data: {
-                username: username,
-                email: "abdulrahim002@gmail.com",
-                age:22, 
-                phone: "123456789",
-            state:1,
-            }
+const UsersModel = require('../model/UserModel.js');
+
+
+
+
+
+exports.create = async (req , res)=>{
+    const {name, email, password} = req.body;
+    await UsersModel.create({
+        name: name,
+        email: email,
+        password:password,
+})
+    .then((user)=>{
+        res.status(200).json({
+            msg: "User created successfully",
+            state: 200,
+            data: user,
+        })})
+    .catch((err)=>{
+        res.status(400).json({
+            msg: "internal server error",
+            state: 400,
+            error: err.message,
+           
         });
- 
-    }
-
- exports.RegisteringUsers=(req,res)=>{
-    const{username,email,phone}=req.body;
-    res.json({
-        msg:`welcome ${username}`,
-        data: {
-            username:username,
-            email: email,
-            phone: phone,
-        state:1,
- }})}
-
-exports.UsersData =(req,res)=>{
-    res.json({
-        msg:"Users Data",
-        data: ['abdulrahim@gmail','200415','09254545454'],
-        state:1,
-    })
-}
-
-
-
-exports.SinUpUsers=(req,res)=>{
-     
-    const {username,password,email,phone} =req.body;
-    if(username.trim() && password.trim() && email.trim() && phone.trim()){
-        return res.json({
-            msg:"User registered successfully",
-            state:0,
-            data: {username, email, phone}
-        });
-    }
-else{
-        return res.json({
-            msg:"Please fill all fields",
-            state:1
-        });
-}
-}
-
-exports.GetAllUsersSalarys = (req, res) => {
+    })}
     
-    res.json({
-        state:1,
-        data: [200,450,5051,51051],
+
+
+
+exports.find = async (req, res) =>{
+
+    await UsersModel.find({
+        name: req.params.name,
     })
+    .then((user) => {
+        if(user.length === 0){
+        return res.json({
+            msg: "User not found",
+            state: 404,
+        })
+    }
+    res.status(200).json({
+        msg: "Users found successfully",
+        state: 200,
+        data: user,
+    })
+
+    }).catch((err) => {
+   res.status(400).json({
+        msg: "internal server error",
+        state: 400,
+        
+    } );
+})
 }
+
+
+
+exports.findOne =async (req, res)=>{
+    
+   await UsersModel.findOne({
+   name: req.params.name,
+    })
+    
+    .then((user) =>
+         {if(user === null){
+        return res.json({
+            msg: "User not found",
+            state: 404,
+        })
+    }
+    res.status(200).json({
+        msg: "User found successfully",
+        state: 200,
+        data:user,
+    })
+    })
+    .catch((err) => {
+         res.status(400).json({
+            msg: "internal server error",
+            state: 400,
+        error: err.message,
+           
+        });
+    
+})
+};
+
+
+
+
+
+
+// exports.create = (req, res) => {
+//   const { name, email, password } = req.body;
+
+// if (!name || !email || !password) {
+//     return res.status(400).json({
+//       msg: "All fields are required",
+//       state: 400,
+//     });
+//   }
+
+//   UsersModel.create({
+//     name: name,
+//     email: email,
+//     password: password,
+//   })
+//     .then(() => {
+//       res.status(200).json({
+//         msg: "User created successfully",
+//         state: 200,
+//       });
+//     })
+//     .catch((err) => {
+//       res.status(4001).json({
+//         msg: "Error creating user",
+//         state: 4001,
+//         error: err.message,
+//       });
+//     });
+// };
